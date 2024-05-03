@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float health;
+    public float health;
 
     [SerializeField]
     float jumpHeight;
@@ -54,9 +54,9 @@ public class PlayerController : MonoBehaviour
         {
             angles.x = 320;
         }
-        else if (angle < 180 && angle > 80)
+        else if (angle < 180 && angle > 60)
         {
-            angles.x = 80;
+            angles.x = 60;
         }
 
         followTransform.transform.localEulerAngles = angles;

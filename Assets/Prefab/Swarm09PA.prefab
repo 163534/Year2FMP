@@ -324,17 +324,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177e46048575cb74d95c4637d35a7d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 20
-  turnSpeed: 10
-  randomFreq: 20
-  randomForce: 1
-  toOriginForce: 50
-  toOriginRange: 1.5
+  minSpeed: 10
+  turnSpeed: 8
+  randomFreq: 19.6
+  randomForce: 6.09
+  toOriginForce: 37.6
+  toOriginRange: 1
   gravity: 2
-  avoidanceRadius: 2
-  avoidanceForce: 2
+  avoidanceRadius: 5.14
+  avoidanceForce: 11.55
   followVelocity: 4
-  followRadius: 17.57
+  followRadius: 9.1
 --- !u!1 &5455065295116428404
 GameObject:
   m_ObjectHideFlags: 0

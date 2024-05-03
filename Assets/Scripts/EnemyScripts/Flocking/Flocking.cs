@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flocking : MonoBehaviour
 {
+    [Header("Movement variables.")]
     public float minSpeed = 20f;
     public float turnSpeed = 20f;
     public float randomFreq = 20f;
@@ -11,20 +12,25 @@ public class Flocking : MonoBehaviour
 
     //alignment variables
     [Header("Alignment variables")]
+    [Tooltip("This changes how strong the boids are pulled towards the centre of the controller")]
     public float toOriginForce = 50f;
-    [Tooltip("This changes how far the flock spreads out")]
+    [Tooltip("This changes how far the flock spreads out from the controller")]
     public float toOriginRange = 1f;
 
     public float gravity = 2.0f;
 
     //seperation variables
     [Header("Seperation variables")]
+    [Tooltip("This changes how far boids can fly to avoid each other")]
     public float avoidanceRadius = 50f;
+    [Tooltip("This changes how strong the force of repulsion is")]
     public float avoidanceForce = 20f;
 
     //cohesion variables
     [Header("Cohesion variables")]
+    [Tooltip("This changes how fast the flock will move towards the controller")]
     public float followVelocity = 4f;
+    [Tooltip("This changes how far away the flock can spread out from the controller as it moves")]
     public float followRadius = 40f;
 
     //These variables control the movement of the boid
@@ -104,6 +110,7 @@ public class Flocking : MonoBehaviour
                 //Magnitude of that directional vector(Length)
                 float directionMagnitude = forceV.magnitude;
                 float forceMagnitude = 0.0f;
+
                 if(directionMagnitude < followRadius)
                 {
                     if (directionMagnitude < avoidanceRadius)

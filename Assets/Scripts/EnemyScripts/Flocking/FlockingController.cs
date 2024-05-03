@@ -16,11 +16,11 @@ public class FlockingController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initialPosition = transform.position;
         if(player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
+        initialPosition = transform.position;
         CalculateNextMovementPoint();
     }
 
@@ -37,10 +37,9 @@ public class FlockingController : MonoBehaviour
     }
     void CalculateNextMovementPoint()
     {
-       /* float posX = Random.Range(initialPosition.x - bound.x, initialPosition.x + bound.x);
+        float posX = Random.Range(initialPosition.x - bound.x, initialPosition.x + bound.x);
         float posY = Random.Range(initialPosition.y - bound.y, initialPosition.y + bound.y);
-        float posZ = Random.Range(initialPosition.z - bound.z, initialPosition.z + bound.z); */
-
-        nextMovementPoint = initialPosition + player.transform.position;
+        float posZ = Random.Range(initialPosition.x - bound.z, initialPosition.z + bound.z);
+        nextMovementPoint = player.transform.position;
     }
 }

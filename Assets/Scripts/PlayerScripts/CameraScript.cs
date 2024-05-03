@@ -30,9 +30,9 @@ public class CameraScript : MonoBehaviour
         {
             angles.x = 340;
         }
-        else if(angle < 180 && angle > 40)
+        else if(angle < 180 && angle > 30)
         {
-            angles.x = 40;
+            angles.x = 30;
         }
 
         transform.localEulerAngles = angles;

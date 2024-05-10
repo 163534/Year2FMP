@@ -10,15 +10,15 @@ public class IdleState : IState
     public void OnEnterState(PlayerFSM stateMachine)
     {
         sm = stateMachine;
+
         Debug.Log("Entered Idle State");
         sm.InitDebugText();
     }
     public void UpdateState()
     {
-        if (Aiming())
-        {
-            sm.ChangeState(sm.aimState);
-        }
+        sm.MovementAndCamera();
+        sm.Jump();
+        sm.AimDownSights();
     }
     public void PhysicsUpdateState()
     {
@@ -28,11 +28,6 @@ public class IdleState : IState
     {
 
     }
-    public bool Aiming()
-    {
-        if (Input.GetMouseButtonDown(0))
-            return true;
-        else
-            return false;
-    }
+    
+    
 }

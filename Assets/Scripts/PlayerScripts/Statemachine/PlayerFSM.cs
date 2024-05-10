@@ -18,12 +18,14 @@ public class PlayerFSM : MonoBehaviour
     public IState currentState, lastState;
     public IdleState idleState;
     public AimState aimState;
-    
 
+    public GameObject mainCamera;
+    public GameObject aimCamera;
     // debug text
     public string text;
 
     public float health;
+    bool isGrounded;
 
     [SerializeField]
     float jumpHeight;
@@ -34,12 +36,15 @@ public class PlayerFSM : MonoBehaviour
     Vector3 velocity;
 
     public Transform followTransform;
+    public Animator anim;
     private CharacterController cc;
 
     private void Start()
     {
         idleState = new IdleState();
         aimState = new AimState();
+        anim.SetFloat("AnimSpeed", 2);
+
 
         text = "";  // clear debug text
 
@@ -57,10 +62,8 @@ public class PlayerFSM : MonoBehaviour
         if (currentState != null)
         {
             currentState.UpdateState();
-            MovementAndCamera();
-            Jump();
         }
-
+        Debug.Log(isGrounded);
     }
 
     private void FixedUpdate()
@@ -97,9 +100,20 @@ public class PlayerFSM : MonoBehaviour
         GUILayout.EndArea();
     }
 
-    public void ExampleSharedMethod()
-    {
-        // this in an example method that can be shared by any state
+    public void AimDownSights()
+    { 
+        if (Input.GetMouseButton(1))
+        {
+            Debug.Log("Aiming");
+            mainCamera.SetActive(false);
+            aimCamera.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("not aiming");
+            mainCamera.SetActive(true);
+            aimCamera.SetActive(false);
+        }
     }
 
     public void InitDebugText()
@@ -112,7 +126,7 @@ public class PlayerFSM : MonoBehaviour
             lastStateText = "null";
         text = $"Current State = Idle\nLast state was {lastStateText}\nPress R to change to Run state\nPress I to change to Idle state";
     }
-    void MovementAndCamera()
+    public void MovementAndCamera()
     {
         //Rotate the Follow Target transform based on the input
         followTransform.transform.rotation *= Quaternion.AngleAxis(Input.GetAxisRaw("Mouse X") * rotationPower, Vector3.up);
@@ -140,33 +154,39 @@ public class PlayerFSM : MonoBehaviour
 
         // Takes in the horizontal and vertical input moves the character controller based on input * moveSpeed
         Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        cc.Move(transform.rotation * movement * Time.deltaTime * moveSpeed);
+        movement = transform.rotation * movement * moveSpeed;
+        velocity.x = movement.x;
+        velocity.z = movement.z;
+        //cc.Move(transform.rotation * movement * moveSpeed);
 
         //Set the player rotation based on the look transform
         transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
         //reset the y rotation of the look transform
         followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
-    void Jump()
+    public void Jump()
     {
 
         float gravity = -9.81f;
 
-        if (IsGrounded() && velocity.y < 0)
+        Debug.Log(velocity.y);
+        if (cc.isGrounded && velocity.y < 0)
         {
             velocity.y = 0f;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
         {
             velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             Debug.Log("Jumping");
+            isGrounded = false;
+
         }
         velocity.y += gravity * Time.deltaTime;
+
         cc.Move(velocity * Time.deltaTime);
         //Debug.Log(velocity.y);
     }
-    bool IsGrounded()
+   /* bool IsGrounded()
     {
         Vector3 down = transform.TransformDirection(-Vector3.up);
 
@@ -181,5 +201,16 @@ public class PlayerFSM : MonoBehaviour
             return false;
         }
 
-    }
+    }*/
+   /* private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.layer == 3)
+        {
+            
+            isGrounded = true;
+            
+        }
+        
+    }*/
+    
 }

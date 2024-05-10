@@ -331,7 +331,7 @@ MonoBehaviour:
   toOriginForce: 37.6
   toOriginRange: 1
   gravity: 2
-  avoidanceRadius: 5.14
+  avoidanceRadius: 10.12
   avoidanceForce: 11.55
   followVelocity: 4
   followRadius: 9.1

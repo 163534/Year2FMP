@@ -16,7 +16,7 @@ public class IdleState : IState
     }
     public void UpdateState()
     {
-        sm.MovementAndCamera();
+        sm.MovementCalculationAndCamera();
         sm.Jump();
         sm.AimDownSights();
     }

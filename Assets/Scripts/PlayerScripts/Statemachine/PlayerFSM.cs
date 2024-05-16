@@ -21,17 +21,17 @@ public class PlayerFSM : MonoBehaviour
 
     public GameObject mainCamera;
     public GameObject aimCamera;
+   // public GameObject reticle; <--- currently not needed.
+    public GameObject aimReticle;
+
     // debug text
     public string text;
 
     public float health;
-    bool isGrounded;
 
     [SerializeField]
     float jumpHeight;
 
-    float horizontalInput;
-    float verticalInput;
     public float rotationPower;
     Vector3 velocity;
 
@@ -63,7 +63,7 @@ public class PlayerFSM : MonoBehaviour
         {
             currentState.UpdateState();
         }
-        Debug.Log(isGrounded);
+        Debug.Log(cc.isGrounded);
     }
 
     private void FixedUpdate()
@@ -107,13 +107,22 @@ public class PlayerFSM : MonoBehaviour
             Debug.Log("Aiming");
             mainCamera.SetActive(false);
             aimCamera.SetActive(true);
+
+            //Allow time for the camera to blend before enabling the UI
+            StartCoroutine(ShowReticle());
         }
         else
         {
             Debug.Log("not aiming");
             mainCamera.SetActive(true);
             aimCamera.SetActive(false);
+            aimReticle.SetActive(false);
         }
+    }
+    IEnumerator ShowReticle()
+    {
+        yield return new WaitForSeconds(0.25f);
+        aimReticle.SetActive(enabled);
     }
 
     public void InitDebugText()
@@ -126,7 +135,7 @@ public class PlayerFSM : MonoBehaviour
             lastStateText = "null";
         text = $"Current State = Idle\nLast state was {lastStateText}\nPress R to change to Run state\nPress I to change to Idle state";
     }
-    public void MovementAndCamera()
+    public void MovementCalculationAndCamera()
     {
         //Rotate the Follow Target transform based on the input
         followTransform.transform.rotation *= Quaternion.AngleAxis(Input.GetAxisRaw("Mouse X") * rotationPower, Vector3.up);
@@ -178,39 +187,10 @@ public class PlayerFSM : MonoBehaviour
         {
             velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             Debug.Log("Jumping");
-            isGrounded = false;
-
         }
         velocity.y += gravity * Time.deltaTime;
 
         cc.Move(velocity * Time.deltaTime);
         //Debug.Log(velocity.y);
     }
-   /* bool IsGrounded()
-    {
-        Vector3 down = transform.TransformDirection(-Vector3.up);
-
-        if (Physics.Raycast(transform.position, down, 0.1f))
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(-Vector3.up) * 0.05f, Color.white);
-            return true;
-        }
-        else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(-Vector3.up) * 0.05f, Color.red);
-            return false;
-        }
-
-    }*/
-   /* private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.layer == 3)
-        {
-            
-            isGrounded = true;
-            
-        }
-        
-    }*/
-    
 }

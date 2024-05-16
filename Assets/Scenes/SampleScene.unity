@@ -789,7 +789,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -1102,11 +1102,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b118f8c7854f0f47a94c09f8219482b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1074324328}
+  aimCamera: {fileID: 2134099031}
   text: 
   health: 0
   jumpHeight: 2
   rotationPower: 4
   followTransform: {fileID: 1806708298}
+  anim: {fileID: 1398238599}
+--- !u!95 &1398238599 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4540229000190281644, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+  m_PrefabInstance: {fileID: 1398238591}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1434314000
 GameObject:
   m_ObjectHideFlags: 3

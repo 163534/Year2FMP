@@ -178,7 +178,7 @@ public class PlayerFSM : MonoBehaviour
 
         float gravity = -9.81f;
 
-        Debug.Log(velocity.y);
+        //Debug.Log(velocity.y);
         if (cc.isGrounded && velocity.y < 0)
         {
             velocity.y = 0f;
@@ -191,6 +191,6 @@ public class PlayerFSM : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         cc.Move(velocity * Time.deltaTime);
-        //Debug.Log(velocity.y);
+        
     }
 }

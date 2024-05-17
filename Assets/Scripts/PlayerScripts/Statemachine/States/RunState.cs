@@ -2,35 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : IState
+public class RunState : IState
 {
     // WARNING! This state has effectively turned into a checker state \\
 
     PlayerFSM sm;
+    
     public void OnEnterState(PlayerFSM stateMachine)
     {
         sm = stateMachine;
 
-        Debug.Log("Entered Idle State");
+        Debug.Log("Entered Run State");
         sm.InitDebugText();
     }
     public void UpdateState()
     {
-        if( sm.CheckForMove() )
+
+        if (sm.CheckForMove() == false)
         {
-            sm.ChangeState(sm.runState);
+            sm.ChangeState(sm.idleState);
         }
-        sm.MovementCalculationAndCamera();
+        else if(sm.CheckForMove() == true)
+        {
+            sm.MovementCalculationAndCamera();
+        }
+        //sm.MovementCalculationAndCamera();
         sm.AimDownSights();
+        sm.Jump();
+        sm.MoveCC();
+
+
+        //sm.AimDownSights();
     }
     public void PhysicsUpdateState()
     {
-
+        //sm.MoveCC();
     }
     public void OnExitState()
     {
 
     }
-    
-    
+
+
 }
+
+
+
+
+

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ public class PlayerFSM : MonoBehaviour
     public IState currentState, lastState;
     public IdleState idleState;
     public AimState aimState;
+    public JumpState jumpState;
+    public RunState runState;
+
+
 
     public GameObject mainCamera;
     public GameObject aimCamera;
@@ -26,6 +31,8 @@ public class PlayerFSM : MonoBehaviour
 
     // debug text
     public string text;
+    public Vector3 angles;
+    public float angle;
 
     public float health;
 
@@ -43,6 +50,9 @@ public class PlayerFSM : MonoBehaviour
     {
         idleState = new IdleState();
         aimState = new AimState();
+        runState = new RunState();
+        jumpState = new JumpState();
+
         anim.SetFloat("AnimSpeed", 2);
 
 
@@ -63,7 +73,7 @@ public class PlayerFSM : MonoBehaviour
         {
             currentState.UpdateState();
         }
-        Debug.Log(cc.isGrounded);
+        //Debug.Log(cc.isGrounded);
     }
 
     private void FixedUpdate()
@@ -128,12 +138,13 @@ public class PlayerFSM : MonoBehaviour
     public void InitDebugText()
     {
         string lastStateText;
+        string currentStateText = currentState.ToString();
 
         if (lastState != null)
             lastStateText = lastState.ToString();
         else
             lastStateText = "null";
-        text = $"Current State = Idle\nLast state was {lastStateText}\nPress R to change to Run state\nPress I to change to Idle state";
+        text = $"Current State = {currentStateText}\nLast state was {lastStateText}";
     }
     public void MovementCalculationAndCamera()
     {
@@ -142,10 +153,10 @@ public class PlayerFSM : MonoBehaviour
 
         followTransform.transform.rotation *= Quaternion.AngleAxis(Input.GetAxisRaw("Mouse Y") * rotationPower, -Vector3.right);
 
-        var angles = followTransform.transform.localEulerAngles;
+        angles = followTransform.transform.localEulerAngles;
         angles.z = 0;
 
-        var angle = followTransform.transform.localEulerAngles.x;
+        angle = followTransform.transform.localEulerAngles.x;
         //Clamp the Up/Down rotation
         if (angle > 180 && angle < 320)
         {
@@ -163,16 +174,36 @@ public class PlayerFSM : MonoBehaviour
 
         // Takes in the horizontal and vertical input moves the character controller based on input * moveSpeed
         Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+
         movement = transform.rotation * movement * moveSpeed;
         velocity.x = movement.x;
         velocity.z = movement.z;
-        //cc.Move(transform.rotation * movement * moveSpeed);
+
+        //Debug.Log(velocity.x);
+        //Debug.Log(velocity.y);
+
+        anim.SetFloat("x", velocity.x);
+        anim.SetFloat("y", velocity.z);
+
 
         //Set the player rotation based on the look transform
         transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
         //reset the y rotation of the look transform
         followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
+
+    public bool CheckForMove()
+    {
+        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        //print("mag=" + movement.magnitude);
+        if( movement.magnitude > 0.1f )
+        {
+            return true;
+        }
+        return false;
+
+    }
+
     public void Jump()
     {
 
@@ -190,7 +221,11 @@ public class PlayerFSM : MonoBehaviour
         }
         velocity.y += gravity * Time.deltaTime;
 
-        cc.Move(velocity * Time.deltaTime);
+        //cc.Move(velocity * Time.deltaTime);
         
+    }
+    public void MoveCC()
+    {
+        cc.Move(velocity * Time.deltaTime);
     }
 }

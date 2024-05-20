@@ -114,7 +114,7 @@ public class PlayerFSM : MonoBehaviour
     { 
         if (Input.GetMouseButton(1))
         {
-            Debug.Log("Aiming");
+            //Debug.Log("Aiming");
             mainCamera.SetActive(false);
             aimCamera.SetActive(true);
 
@@ -123,7 +123,7 @@ public class PlayerFSM : MonoBehaviour
         }
         else
         {
-            Debug.Log("not aiming");
+            //Debug.Log("not aiming");
             mainCamera.SetActive(true);
             aimCamera.SetActive(false);
             //aimReticle.SetActive(false);

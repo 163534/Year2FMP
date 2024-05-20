@@ -53,7 +53,7 @@ public class PlayerFSM : MonoBehaviour
         runState = new RunState();
         jumpState = new JumpState();
 
-        anim.SetFloat("AnimSpeed", 2);
+        //anim.SetFloat("AnimSpeed", 2);
 
 
         text = "";  // clear debug text
@@ -126,7 +126,7 @@ public class PlayerFSM : MonoBehaviour
             Debug.Log("not aiming");
             mainCamera.SetActive(true);
             aimCamera.SetActive(false);
-            aimReticle.SetActive(false);
+            //aimReticle.SetActive(false);
         }
     }
     IEnumerator ShowReticle()

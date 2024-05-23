@@ -95,7 +95,7 @@ public class FlockingController : MonoBehaviour
     // SS into weekly write-ups.
     bool WithinRangeOfPlayer()
     {
-        Debug.Log(Vector3.Distance(gameObject.transform.position, player.transform.position));
+        //Debug.Log(Vector3.Distance(gameObject.transform.position, player.transform.position));
         if(Vector3.Distance(gameObject.transform.position, player.transform.position) <= distanceFromTarget)
         {
             return true;

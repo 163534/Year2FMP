@@ -206,7 +206,6 @@ public class PlayerFSM : MonoBehaviour
 
     public void Jump()
     {
-
         float gravity = -9.81f;
 
         //Debug.Log(velocity.y);
@@ -223,6 +222,13 @@ public class PlayerFSM : MonoBehaviour
 
         //cc.Move(velocity * Time.deltaTime);
         
+    }
+    public void ApplyGravity()
+    {
+        float gravity = -9.81f;
+
+        Debug.Log(velocity.y);
+        velocity.y += gravity * Time.deltaTime;
     }
     public void MoveCC()
     {

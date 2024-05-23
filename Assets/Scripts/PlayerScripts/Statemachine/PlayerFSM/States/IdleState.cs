@@ -21,6 +21,8 @@ public class IdleState : IState
             sm.ChangeState(sm.runState);
         }
         sm.MovementCalculationAndCamera();
+        sm.Jump();
+        sm.ApplyGravity();
         sm.AimDownSights();
     }
     public void PhysicsUpdateState()

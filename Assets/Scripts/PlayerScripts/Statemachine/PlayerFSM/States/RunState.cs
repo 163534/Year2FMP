@@ -24,6 +24,7 @@ public class RunState : IState
         }
         else if(sm.CheckForMove() == true)
         {
+            sm.ApplyGravity();
             sm.MovementCalculationAndCamera();
         }
         //sm.MovementCalculationAndCamera();

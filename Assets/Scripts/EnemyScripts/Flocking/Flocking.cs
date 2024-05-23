@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Flocking : MonoBehaviour
 {
+
+    enum BoidState
+    {
+        Swarm,
+        Attack,
+    }
+
     [Header("Movement variables.")]
     public float minSpeed = 20f;
     public float turnSpeed = 20f;
@@ -45,9 +52,48 @@ public class Flocking : MonoBehaviour
     private Transform transformComponent;
     private float randomFreqInterval;
 
+    GameObject player;
+    FlockingController fc;
+
+    BoidState state;
+
     // Start is called before the first frame update
     void Start()
     {
+        SwarmAssignemt();
+        state = BoidState.Swarm;
+
+        player = GameObject.FindWithTag("Player");
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (state == BoidState.Swarm)
+        {
+            SwarmBehaviour();
+        }
+
+        if (state == BoidState.Attack)
+        {
+            print("Entered Attack State");
+             LookAtPlayer();
+        }
+    }
+
+    IEnumerator UpdateRandom()
+    {
+        while (true)
+        {
+            randomPush = Random.insideUnitSphere * randomForce;
+            yield return new WaitForSeconds(randomFreqInterval + Random.Range(-randomFreqInterval / 2.0f, randomFreqInterval / 2.0f));
+        }
+    }
+    void SwarmAssignemt()
+    {
+        fc = GetComponentInParent<FlockingController>();
+
         randomFreqInterval = 1.0f / randomFreq;
 
         //Assign the parent as origin
@@ -79,9 +125,7 @@ public class Flocking : MonoBehaviour
         //Calculate random push depends on the random freqency provided
         StartCoroutine(UpdateRandom());
     }
-
-    // Update is called once per frame
-    void Update()
+    void SwarmBehaviour()
     {
         //Internal variables
         float speed = velocity.magnitude;
@@ -93,10 +137,10 @@ public class Flocking : MonoBehaviour
         Vector3 forceV;
         Vector3 toAvg;
 
-        for(int i = 0; i < objects.Length; i++)
+        for (int i = 0; i < objects.Length; i++)
         {
             Transform boidTransform = objects[i];
-            if(boidTransform != transformComponent)
+            if (boidTransform != transformComponent)
             {
                 Vector3 otherPosition = boidTransform.position;
 
@@ -111,7 +155,7 @@ public class Flocking : MonoBehaviour
                 float directionMagnitude = forceV.magnitude;
                 float forceMagnitude = 0.0f;
 
-                if(directionMagnitude < followRadius)
+                if (directionMagnitude < followRadius)
                 {
                     if (directionMagnitude < avoidanceRadius)
                     {
@@ -130,7 +174,7 @@ public class Flocking : MonoBehaviour
             }
         }
 
-        if(count > 0)
+        if (count > 0)
         {
             //Calculate the average flock velocity (alignment)
             avgVelocity /= count;
@@ -148,11 +192,11 @@ public class Flocking : MonoBehaviour
         float leaderForceMagnitude = leaderDirectionMagnitude / toOriginRange;
 
         //Calculate the velocity of the flock to the leader
-        if(leaderForceMagnitude > 0)
+        if (leaderForceMagnitude > 0)
         {
             originPush = leaderForceMagnitude * toOriginForce * (forceV / leaderDirectionMagnitude);
         }
-        if(speed < minSpeed && speed > 0)
+        if (speed < minSpeed && speed > 0)
         {
             velocity = (velocity / speed) * minSpeed;
         }
@@ -173,13 +217,10 @@ public class Flocking : MonoBehaviour
 
         normalisedVelocity = velocity.normalized;
     }
-
-    IEnumerator UpdateRandom()
+    void LookAtPlayer()
     {
-        while (true)
-        {
-            randomPush = Random.insideUnitSphere * randomForce;
-            yield return new WaitForSeconds(randomFreqInterval + Random.Range(-randomFreqInterval / 2.0f, randomFreqInterval / 2.0f));
-        }
+        var rotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
     }
 }

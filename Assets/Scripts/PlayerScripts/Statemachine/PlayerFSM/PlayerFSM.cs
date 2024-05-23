@@ -1,8 +1,4 @@
-using JetBrains.Annotations;
-using NUnit.Framework.Interfaces;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public interface IState
@@ -26,7 +22,6 @@ public class PlayerFSM : MonoBehaviour
 
     public GameObject mainCamera;
     public GameObject aimCamera;
-   // public GameObject reticle; <--- currently not needed.
     public GameObject aimReticle;
 
     // debug text
@@ -38,6 +33,7 @@ public class PlayerFSM : MonoBehaviour
 
     [SerializeField]
     float jumpHeight;
+    public GameObject groundCheck;
 
     public float rotationPower;
     Vector3 velocity;
@@ -119,7 +115,7 @@ public class PlayerFSM : MonoBehaviour
             aimCamera.SetActive(true);
 
             //Allow time for the camera to blend before enabling the UI
-            StartCoroutine(ShowReticle());
+            //StartCoroutine(ShowReticle());
         }
         else
         {
@@ -132,7 +128,7 @@ public class PlayerFSM : MonoBehaviour
     IEnumerator ShowReticle()
     {
         yield return new WaitForSeconds(0.25f);
-        aimReticle.SetActive(enabled);
+        aimReticle.SetActive(true);
     }
 
     public void InitDebugText()
@@ -206,18 +202,30 @@ public class PlayerFSM : MonoBehaviour
 
     public void Jump()
     {
+        RaycastHit hit;
         float gravity = -9.81f;
+        Vector3 rayOffset = new Vector3(0, 0.5f, 0);
+
 
         //Debug.Log(velocity.y);
         if (cc.isGrounded && velocity.y < 0)
         {
             velocity.y = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(groundCheck.transform.position, Vector3.down, out hit, 0.5f))
         {
-            velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-            Debug.Log("Jumping");
+            if(hit.collider.tag == "Ground")
+            {
+                //Debug.DrawRay(transform.position, Vector3.down * 0.2f, Color.red);
+                velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+                Debug.Log("Jumping");
+            }
+            else
+            {
+                print("not grounded");
+            }
         }
+        Debug.DrawRay(groundCheck.transform.position, Vector3.down * 0.5f, Color.red);
         velocity.y += gravity * Time.deltaTime;
 
         //cc.Move(velocity * Time.deltaTime);
@@ -227,7 +235,7 @@ public class PlayerFSM : MonoBehaviour
     {
         float gravity = -9.81f;
 
-        Debug.Log(velocity.y);
+        //Debug.Log(velocity.y);
         velocity.y += gravity * Time.deltaTime;
     }
     public void MoveCC()

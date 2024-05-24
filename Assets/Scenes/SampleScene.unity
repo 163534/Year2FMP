@@ -2375,7 +2375,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761990052}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 55.32979}
+  m_LocalPosition: {x: 0, y: 0, z: 55.41983}
   m_LocalScale: {x: 0.50000006, y: 0.50000006, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3060,6 +3060,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1398238598}
+    - targetCorrespondingSourceObject: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1398238600}
   m_SourcePrefab: {fileID: 100100000, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
 --- !u!1 &1398238592 stripped
 GameObject:
@@ -3116,7 +3119,7 @@ MonoBehaviour:
   angles: {x: 0, y: 0, z: 0}
   angle: 0
   health: 0
-  jumpHeight: 3
+  jumpHeight: 3.5
   groundCheck: {fileID: 1808492164}
   rotationPower: 4
   followTransform: {fileID: 1806708298}
@@ -3126,6 +3129,18 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 4540229000190281644, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
   m_PrefabInstance: {fileID: 1398238591}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1398238600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398238592}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d84a75287b4484088c731afd08f618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1422165821
 GameObject:
   m_ObjectHideFlags: 0
@@ -4253,7 +4268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.98
-  distanceFromTarget: 15
+  distanceFromTarget: 12
 --- !u!4 &2019979438
 Transform:
   m_ObjectHideFlags: 0

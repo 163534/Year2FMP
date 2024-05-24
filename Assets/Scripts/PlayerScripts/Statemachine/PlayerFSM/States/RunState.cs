@@ -27,10 +27,11 @@ public class RunState : IState
             sm.ApplyGravity();
             sm.MovementCalculationAndCamera();
         }
-        //sm.MovementCalculationAndCamera();
+        sm.AnimateMovement();
         sm.AimDownSights();
         sm.Jump();
         sm.MoveCC();
+
 
 
         //sm.AimDownSights();

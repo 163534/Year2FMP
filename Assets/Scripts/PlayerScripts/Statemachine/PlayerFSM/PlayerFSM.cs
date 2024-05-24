@@ -178,8 +178,8 @@ public class PlayerFSM : MonoBehaviour
         //Debug.Log(velocity.x);
         //Debug.Log(velocity.y);
 
-        anim.SetFloat("x", velocity.x);
-        anim.SetFloat("y", velocity.z);
+        //anim.SetFloat("x", velocity.x);
+       // anim.SetFloat("y", velocity.z);
 
 
         //Set the player rotation based on the look transform
@@ -191,6 +191,7 @@ public class PlayerFSM : MonoBehaviour
     public bool CheckForMove()
     {
         Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+
         //print("mag=" + movement.magnitude);
         if( movement.magnitude > 0.1f )
         {
@@ -198,6 +199,26 @@ public class PlayerFSM : MonoBehaviour
         }
         return false;
 
+    }
+    public void AnimateMovement()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+
+        Vector2 direction = new Vector2(x, y);
+
+        float mag = direction.magnitude;
+        print(mag);
+        if(CheckForMove())
+        {
+            anim.SetFloat("x", x);
+            anim.SetFloat("y", y);
+        }
+        else
+        {
+            anim.SetFloat("x", 0);
+            anim.SetFloat("y", 0);
+        }
     }
 
     public void Jump()

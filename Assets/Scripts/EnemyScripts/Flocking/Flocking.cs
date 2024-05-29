@@ -60,11 +60,11 @@ public class Flocking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SwarmAssignemt();
-        state = BoidState.Swarm;
-
+        fc = gameObject.GetComponentInParent< FlockingController >();
+        if(fc != null ) { print("Parent script Obtained"); }
         player = GameObject.FindWithTag("Player");
-
+        state = BoidState.Swarm;
+        SwarmAssignemt();
     }
 
     // Update is called once per frame
@@ -72,12 +72,15 @@ public class Flocking : MonoBehaviour
     {
         if (state == BoidState.Swarm)
         {
+            print("Swarm is in the swarming state");
             SwarmBehaviour();
+            CheckForStateChange();
         }
 
         if (state == BoidState.Attack)
         {
-            print("Entered Attack State");
+            print("Swarn is in the attack state");
+            CheckForStateChange();
              LookAtPlayer();
         }
     }
@@ -88,6 +91,17 @@ public class Flocking : MonoBehaviour
         {
             randomPush = Random.insideUnitSphere * randomForce;
             yield return new WaitForSeconds(randomFreqInterval + Random.Range(-randomFreqInterval / 2.0f, randomFreqInterval / 2.0f));
+        }
+    }
+    void CheckForStateChange()
+    {
+        if (fc.state == boidControllerState.Attack)
+        {
+            state = BoidState.Attack;
+        }
+        else if (fc.state == boidControllerState.Chase)
+        {
+            state = BoidState.Swarm;
         }
     }
     void SwarmAssignemt()
@@ -221,6 +235,6 @@ public class Flocking : MonoBehaviour
     {
         var rotation = Quaternion.LookRotation(player.transform.position - transform.position);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2.5f);
     }
 }

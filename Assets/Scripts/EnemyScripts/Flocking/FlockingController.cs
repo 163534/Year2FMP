@@ -2,26 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
-public interface EState
+public enum boidControllerState
 {
-    public void UpdateState();
-    public void PhysicsUpdateState();
-    public void OnEnterState(FlockingController sm);
-    public void OnExitState();
+    Chase,
+    Attack,
 }
 public class FlockingController : MonoBehaviour
 {
-    public EState currentState, lastState;
-
+    
     //public Vector3 bound;
     public float speed;
     public float distanceFromTarget;
+    public bool attack;
 
     //private Vector3 initialPosition;
     private Vector3 nextMovementPoint;
 
     private GameObject player;
+    public boidControllerState state;
 
     // Start is called before the first frame update
     void Start()
@@ -32,48 +30,49 @@ public class FlockingController : MonoBehaviour
         }
 
         //initialPosition = transform.position;
-
+        state = boidControllerState.Chase;
         FindPlayer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        FindPlayer();
-        StayOffTheGround();
-        ChasePlayer();
-        if (currentState != null)
+        print(state);
+        if(state == boidControllerState.Chase)
         {
-            currentState.UpdateState();
+            CheckForStateChange();
+            FindPlayer();
+            StayOffTheGround();
+            ChasePlayer();
         }
-        /* if(Vector3.Distance(nextMovementPoint, transform.position) <= targetReachedRadius)
+        if(state == boidControllerState.Attack)
+        {
+            CheckForStateChange();
+        }
+          /* if(Vector3.Distance(nextMovementPoint, transform.position) <= targetReachedRadius)
          {
              CalculateNextMovementPoint();
          }*/
     }
-    private void FixedUpdate()
-    {
-        if (currentState != null)
-        {
-            currentState.PhysicsUpdateState();
-        }
-    }
-    public void ChangeState(EState newState)
-    {
-        if (currentState != null)
-        {
-            currentState.OnExitState();
-        }
-        lastState = currentState;
-        currentState = newState;
-        currentState.OnEnterState(this);
-    }
+
     void ChasePlayer()
     {
         if (!WithinRangeOfPlayer())
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(nextMovementPoint - transform.position), 1.0f * Time.deltaTime);
+        }
+
+    }
+    void CheckForStateChange()
+    {
+        if (!WithinRangeOfPlayer())
+        {
+            state = boidControllerState.Chase;
+        }
+        else if (WithinRangeOfPlayer())
+        {
+            state = boidControllerState.Attack;
         }
     }
     void StayOffTheGround()

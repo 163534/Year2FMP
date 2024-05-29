@@ -208,7 +208,7 @@ public class PlayerFSM : MonoBehaviour
         Vector2 direction = new Vector2(x, y);
 
         float mag = direction.magnitude;
-        print(mag);
+        //print(mag);
         if(CheckForMove())
         {
             anim.SetFloat("x", x);

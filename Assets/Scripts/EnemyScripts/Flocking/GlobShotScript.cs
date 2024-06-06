@@ -34,7 +34,7 @@ public class GlobShotScript : MonoBehaviour
     { 
         Vector3 centerPivot = (start + end) * 0.5f;
 
-        centerPivot -= new Vector3(0, 1, 0);
+        centerPivot -= new Vector3(0, 0.5f, 0);
 
         var startRelativeCenter = start - centerPivot;
         var endRelativeCenter = end - centerPivot;

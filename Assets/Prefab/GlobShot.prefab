@@ -158,7 +158,7 @@ MonoBehaviour:
   journeyTime: 3.5
   offsetX: 0
   offsetY: 0
-  offsetZ: 0.5
+  offsetZ: 0
 --- !u!135 &957013472948634474
 SphereCollider:
   m_ObjectHideFlags: 0

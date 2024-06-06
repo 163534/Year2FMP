@@ -63,7 +63,7 @@ public class Flocking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shootCounter = 4;
+        shootCounter = Random.Range(2,6);
         fc = gameObject.GetComponentInParent< FlockingController >();
         player = GameObject.FindWithTag("Player");
         state = BoidState.Swarm;

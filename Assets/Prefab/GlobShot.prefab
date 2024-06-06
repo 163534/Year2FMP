@@ -151,12 +151,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8c5517e44ac8940b89176336246b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {fileID: 0}
+  start: {x: 0, y: 0, z: 0}
+  end: {x: 0, y: 0, z: 0}
   slerpSpeed: 0.1
   startTime: 0
-  journeyTime: 40
-  sunrise: {fileID: 0}
-  sunset: {fileID: 0}
+  journeyTime: 3.5
+  offsetX: 0
+  offsetY: 0
+  offsetZ: 0.5
 --- !u!135 &957013472948634474
 SphereCollider:
   m_ObjectHideFlags: 0

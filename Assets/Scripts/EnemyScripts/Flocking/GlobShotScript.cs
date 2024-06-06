@@ -6,13 +6,12 @@ using UnityEngine;
 public class GlobShotScript : MonoBehaviour
 {
     GameObject player;
-    public Transform startPosition;
-    Vector3 playerPosition;
+    public Vector3 start, end;
     public float slerpSpeed;
     public float startTime;
     public float journeyTime;
-    public Transform sunrise;
-    public Transform sunset;
+
+    public float offsetX, offsetY, offsetZ;
     
     // Start is called before the first frame update
     void Start()
@@ -20,33 +19,22 @@ public class GlobShotScript : MonoBehaviour
         transform.parent = null;
         startTime = Time.time;
         player = GameObject.FindWithTag("Player");
-        playerPosition = player.transform.position;
-        startPosition = gameObject.transform;
-        //StartCoroutine(SlerpTowardsPlayer());
+        
+        start = transform.position;
+        end = player.gameObject.transform.position + new Vector3(offsetX,offsetY,offsetZ);
+
     }
     private void Update()
     {
-        EvaluateSlerpPoints(startPosition.position, playerPosition, -1);
+        EvaluateSlerpPoints();
     }
 
     // Update is called once per frames
-    IEnumerator SlerpTowardsPlayer()
-    {
-        float time = 0;
-        while (time< 1)
-        {
-            //transform.position = Vector3.Slerp(startPosition.position, playerPosition, time);
-            EvaluateSlerpPoints(startPosition.position, playerPosition, 0);
-            print("message");
-            time += Time.deltaTime * slerpSpeed;
-            yield return null;
-        }
-    }
-    void EvaluateSlerpPoints(Vector3 start, Vector3 end, float centerOffset)
+    void EvaluateSlerpPoints()
     { 
-        var centerPivot = (start + end) * 0.5f;
+        Vector3 centerPivot = (start + end) * 0.5f;
 
-        centerPivot -= new Vector3(0, -centerOffset, 0);
+        centerPivot -= new Vector3(0, 1, 0);
 
         var startRelativeCenter = start - centerPivot;
         var endRelativeCenter = end - centerPivot;
@@ -60,14 +48,14 @@ public class GlobShotScript : MonoBehaviour
     void Slerp()
     {
         // The center of the arc
-        Vector3 center = (sunrise.position + sunset.position) * 0.5F;
+        Vector3 center = (start + end) * 0.5F;
 
         // move the center a bit downwards to make the arc vertical
         center -= new Vector3(0, 1, 0);
 
         // Interpolate over the arc relative to center
-        Vector3 riseRelCenter = sunrise.position - center;
-        Vector3 setRelCenter = sunset.position - center;
+        Vector3 riseRelCenter = start - center;
+        Vector3 setRelCenter = end - center;
 
         // The fraction of the animation that has happened so far is
         // equal to the elapsed time divided by the desired time for

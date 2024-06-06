@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AimCamera
   - Ground
+  - GlobShot
   layers:
   - Default
   - TransparentFX

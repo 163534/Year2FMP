@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Flocking : MonoBehaviour
@@ -52,16 +51,20 @@ public class Flocking : MonoBehaviour
     private Transform transformComponent;
     private float randomFreqInterval;
 
+    float shootCounter;
+
     GameObject player;
+    public GameObject globShot;
     FlockingController fc;
+    public Transform globShotTransform;
 
     BoidState state;
 
     // Start is called before the first frame update
     void Start()
     {
+        shootCounter = 4;
         fc = gameObject.GetComponentInParent< FlockingController >();
-        if(fc != null ) { print("Parent script Obtained"); }
         player = GameObject.FindWithTag("Player");
         state = BoidState.Swarm;
         SwarmAssignemt();
@@ -81,7 +84,20 @@ public class Flocking : MonoBehaviour
         {
             print("Swarn is in the attack state");
             CheckForStateChange();
-             LookAtPlayer();
+            LookAtPlayer();
+            ShootPlayer();
+
+        }
+    }
+    void ShootPlayer()
+    {
+        shootCounter -= Time.deltaTime;
+        //print(shootCounter);
+        if(shootCounter <= 0)
+        {
+            GameObject globShotClone = Instantiate(globShot, globShotTransform);
+
+            shootCounter = 4;
         }
     }
 

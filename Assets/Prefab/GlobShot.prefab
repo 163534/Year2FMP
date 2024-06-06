@@ -155,7 +155,7 @@ MonoBehaviour:
   end: {x: 0, y: 0, z: 0}
   slerpSpeed: 0.1
   startTime: 0
-  journeyTime: 3.5
+  journeyTime: 2
   offsetX: 0
   offsetY: 0
   offsetZ: 0

@@ -11,7 +11,7 @@ public class IdleState : IState
     {
         sm = stateMachine;
 
-        Debug.Log("Entered Idle State");
+        //Debug.Log("Entered Idle State");
         sm.InitDebugText();
     }
     public void UpdateState()

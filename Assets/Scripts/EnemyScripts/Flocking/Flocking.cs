@@ -75,14 +75,14 @@ public class Flocking : MonoBehaviour
     {
         if (state == BoidState.Swarm)
         {
-            print("Swarm is in the swarming state");
+            //print("Swarm is in the swarming state");
             SwarmBehaviour();
             CheckForStateChange();
         }
 
         if (state == BoidState.Attack)
         {
-            print("Swarn is in the attack state");
+            //print("Swarn is in the attack state");
             CheckForStateChange();
             LookAtPlayer();
             ShootPlayer();

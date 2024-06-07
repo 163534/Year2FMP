@@ -37,7 +37,7 @@ public class FlockingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(state);
+        //print(state);
         if(state == boidControllerState.Chase)
         {
             CheckForStateChange();

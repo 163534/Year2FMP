@@ -47,23 +47,8 @@ public class GlobShotScript : MonoBehaviour
 
     }
    
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
         Destroy(gameObject);
-        if(col.gameObject.CompareTag("Player"))
-        {
-            print("Hit player");
-            Destroy(gameObject);
-        }
-        if (col.gameObject.tag == "Ground" )
-        {
-            print("Hit environment");
-            Destroy(gameObject);
-        }
-        if (col.gameObject.CompareTag("Ground"))
-        {
-            print("Hit environment");
-            Destroy(gameObject);
-        }
     }
 }

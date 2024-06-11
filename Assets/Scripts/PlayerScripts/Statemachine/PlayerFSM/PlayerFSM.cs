@@ -233,7 +233,7 @@ public class PlayerFSM : MonoBehaviour
         {
             velocity.y = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(groundCheck.transform.position, Vector3.down, out hit, 0.5f))
+        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(groundCheck.transform.position, Vector3.down, out hit, 0.65f))
         {
             if(hit.collider.tag == "Ground")
             {
@@ -243,7 +243,7 @@ public class PlayerFSM : MonoBehaviour
             }
             else
             {
-                print("not grounded");
+                Debug.Log("not grounded");
             }
         }
         Debug.DrawRay(groundCheck.transform.position, Vector3.down * 0.5f, Color.red);

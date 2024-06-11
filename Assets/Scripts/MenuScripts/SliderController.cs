@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour
 {
-    public Slider musicSlider, sfxSlider;
-    private void Awake()
+    public Slider sfxSlider;
+    public Slider musicSlider;
+  /*  private void Awake()
     {
         print("sliders activated");
         float mVol = 0.5f;
@@ -30,11 +31,11 @@ public class SliderController : MonoBehaviour
             print("sfx key not found");
         }
         sfxSlider.value = sVol;
-    }
+    }*/
 
     private void Start()
     {
-       /* print("sliders activated");
+        print("sliders activated");
         float mVol= 0.5f;
         float sVol = 0.5f;
         if (PlayerPrefs.HasKey("musicVol"))
@@ -55,7 +56,7 @@ public class SliderController : MonoBehaviour
         {
             print("sfx key not found");
         }
-        sfxSlider.value = sVol; */
+        sfxSlider.value = sVol;
 
     }
     public void ToggleMusic()

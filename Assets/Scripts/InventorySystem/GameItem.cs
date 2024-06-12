@@ -45,6 +45,7 @@ namespace InventorySystem
         //Should destroy object
         public ItemStack Pick()
         {
+            Debug.Log("Item Picked Up");
             Destroy(gameObject);
             return _stack;
         }

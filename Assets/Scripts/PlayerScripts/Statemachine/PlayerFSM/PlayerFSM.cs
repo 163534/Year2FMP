@@ -8,7 +8,6 @@ public interface IState
     public void OnEnterState(PlayerFSM sm);
     public void OnExitState();
 }
-
 public class PlayerFSM : MonoBehaviour
 {
     // attach this script to your player or enemy object that requires a state machine
@@ -263,4 +262,8 @@ public class PlayerFSM : MonoBehaviour
     {
         cc.Move(velocity * Time.deltaTime);
     }
+
+    // checks to see if we touch any game objects //
+    // Is apart of the inventory system //
+
 }

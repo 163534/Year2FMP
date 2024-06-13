@@ -1,7 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealthBarScript : MonoBehaviour
+public class EnemyHealthScript : MonoBehaviour
 {
     public Image health;
     public float enemyHealth;
@@ -9,19 +11,15 @@ public class EnemyHealthBarScript : MonoBehaviour
     void Start()
     {
         enemyHealth = 100;
-        TakeDamage(10);
+        //TakeDamage(10);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (enemyHealth <= 0)
         {
-            TakeDamage(5);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Heal(10);
+            Destroy(gameObject);
         }
     }
     public void TakeDamage(float damage)
@@ -37,4 +35,5 @@ public class EnemyHealthBarScript : MonoBehaviour
         enemyHealth = Mathf.Clamp(enemyHealth, 0, 100);
         health.fillAmount = enemyHealth / 100;
     }
+
 }

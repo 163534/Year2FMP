@@ -13,6 +13,7 @@ public class GroundEnemyFSM : MonoBehaviour
     NavMeshAgent agent;
     Animator anim;
     GameObject player;
+    GameObject playerHealth;
     ChestState state;
     public float distanceFromTarget;
 
@@ -22,6 +23,7 @@ public class GroundEnemyFSM : MonoBehaviour
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
+        playerHealth = GameObject.FindWithTag("PlayerHealth");
         state = ChestState.Chase;
     }
 
@@ -73,4 +75,5 @@ public class GroundEnemyFSM : MonoBehaviour
         }
         return false;
     }
+
 }

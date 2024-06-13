@@ -12,6 +12,7 @@ public class GlobShotScript : MonoBehaviour
     public float journeyTime;
 
     public float offsetX, offsetY, offsetZ;
+    GameObject playerHealth;
     
     // Start is called before the first frame update
     void Start()
@@ -19,9 +20,10 @@ public class GlobShotScript : MonoBehaviour
         transform.parent = null;
         startTime = Time.time;
         player = GameObject.FindWithTag("Player");
-        
+        playerHealth = GameObject.FindWithTag("PlayerHealth");
+
         start = transform.position;
-        end = player.gameObject.transform.position + new Vector3(offsetX,offsetY,offsetZ);
+        end = player.gameObject.transform.position;
 
     }
     private void Update()
@@ -46,9 +48,14 @@ public class GlobShotScript : MonoBehaviour
         transform.position += centerPivot;
 
     }
-   
     private void OnTriggerEnter(Collider col)
     {
-        Destroy(gameObject);
+        print("ChestMonster collision " + col.gameObject.name);
+        if (col.tag == "Player")
+        {
+            var healthBar = playerHealth.GetComponent<HealthBarScript>();
+            healthBar.TakeDamage(10);
+            print("game won");
+        }
     }
 }

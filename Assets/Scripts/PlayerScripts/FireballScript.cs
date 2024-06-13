@@ -50,6 +50,20 @@ public class FireballScript : MonoBehaviour
         transform.LookAt(point);*/
         //rb.velocity = transform.forward * projectileSpeed;// direction * projectileSpeed;
     }
-
+    private void OnTriggerEnter(Collider col)
+    {
+        print("Collision" + col.gameObject.name);
+        if (col.tag == "Enemy")
+        {
+            col.gameObject.GetComponentInParent<EnemyHealthScript>().TakeDamage(40f);
+            Destroy(gameObject);
+            //print("game won");
+        }
+      /*  else if(col.tag == "FlyingEnemy")
+        {
+            col.GetComponent<Flocking>().
+        }*/
+        
+    }
     // Update is called once per frame
 }

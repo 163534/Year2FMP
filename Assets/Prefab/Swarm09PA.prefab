@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 9113760566894061405}
   - component: {fileID: 2577273737999407863}
   - component: {fileID: -5887038090037940811}
+  - component: {fileID: 3138201172177666464}
   m_Layer: 0
   m_Name: Swarm09PA
   m_TagString: Untagged
@@ -338,6 +339,27 @@ MonoBehaviour:
   followRadius: 9.1
   globShot: {fileID: 5217890059718904883, guid: 9ebd457e139830948bc2dcc0af79f463, type: 3}
   globShotTransform: {fileID: 199119387900750503}
+--- !u!135 &3138201172177666464
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5337196154851190422}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.61, z: 0}
 --- !u!1 &5455065295116428404
 GameObject:
   m_ObjectHideFlags: 0

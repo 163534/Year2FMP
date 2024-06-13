@@ -12,7 +12,7 @@ public class AltarScript : MonoBehaviour
     void Start()
     {
         objectiveText = GameObject.FindGameObjectWithTag("ObjectiveText").GetComponent<TMP_Text>();
-        objectiveText.text = "Objective: Survive 10 mins and wait for the Altar to charge!";
+        objectiveText.text = "Objective: Survive 5 mins and wait for the Altar to charge!";
         altarActive = false;
     }
 
@@ -26,7 +26,7 @@ public class AltarScript : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        print("Collision" + col.gameObject.name);
+        //print("Collision" + col.gameObject.name);
         if (col.name == "Player" && altarActive)
         {
             print("game won");

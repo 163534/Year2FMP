@@ -138,7 +138,7 @@ public class PlayerFSM : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hit;
+            //RaycastHit hit;
             canShoot = false;
             //if(Physics.Raycast(ray, out hit))
             {

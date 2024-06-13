@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
 
         textVar.text = "Time " + time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":" + time.Milliseconds.ToString();
         //Debug.Log(currentTime);
-        if(currentTime >= 600f)
+        if(currentTime >= 300f)
         {
             alterScript.altarActive = true;
         }

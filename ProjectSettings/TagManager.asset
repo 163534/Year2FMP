@@ -11,6 +11,9 @@ TagManager:
   - ObjectiveText
   - Altar
   - SkyboxCamera
+  - PlayerHealth
+  - Enemy
+  - FlyingEnemy
   layers:
   - Default
   - TransparentFX

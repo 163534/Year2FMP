@@ -56,6 +56,8 @@ public class Flocking : MonoBehaviour
     GameObject player;
     public GameObject globShot;
     FlockingController fc;
+    GameObject parent;
+    //EnemyHealthAccess
     public Transform globShotTransform;
 
     BoidState state;
@@ -65,6 +67,7 @@ public class Flocking : MonoBehaviour
     {
         shootCounter = Random.Range(2,6);
         fc = gameObject.GetComponentInParent< FlockingController >();
+        parent = gameObject.transform.parent.gameObject;
         player = GameObject.FindWithTag("Player");
         state = BoidState.Swarm;
         SwarmAssignemt();

@@ -11,8 +11,9 @@ public class AudioManager : MonoBehaviour
     public Sounds[] musicSounds, sfxSounds;
     void Awake()
     {
+        instance = this;
         // Singleton //
-        if(instance == null) // If there is no instance of the audio manager after it's been loaded
+       /* if(instance == null) // If there is no instance of the audio manager after it's been loaded
         {
             instance = this; // Then this class (AudioManager) becomes the instance
             DontDestroyOnLoad(gameObject); // Don't destroy the AudioManager when changing scenes
@@ -20,7 +21,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject); // If an instance already exists then destroy this instance
-        }
+        }*/
         
     }
     private void Start()

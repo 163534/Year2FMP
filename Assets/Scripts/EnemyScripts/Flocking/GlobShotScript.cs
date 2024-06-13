@@ -13,6 +13,8 @@ public class GlobShotScript : MonoBehaviour
 
     public float offsetX, offsetY, offsetZ;
     GameObject playerHealth;
+    float fracComplete;
+    Rigidbody rb;
     
     // Start is called before the first frame update
     void Start()
@@ -25,10 +27,19 @@ public class GlobShotScript : MonoBehaviour
         start = transform.position;
         end = player.gameObject.transform.position;
 
+        rb = GetComponent<Rigidbody>();
+
+
     }
     private void Update()
     {
-        EvaluateSlerpPoints();
+        if( fracComplete < 1 )
+            EvaluateSlerpPoints();
+        else
+        {
+            rb.useGravity = true;
+
+        }
     }
 
     // Update is called once per frames
@@ -42,20 +53,33 @@ public class GlobShotScript : MonoBehaviour
         var startRelativeCenter = start - centerPivot;
         var endRelativeCenter = end - centerPivot;
 
-        var fracComplete = (Time.time - startTime) / journeyTime;
-
+        fracComplete = (Time.time - startTime) / journeyTime;
         transform.position = Vector3.Slerp(startRelativeCenter, endRelativeCenter, fracComplete);
         transform.position += centerPivot;
+
+        if( fracComplete > 1)
+        {
+            //Destroy(gameObject);
+
+
+
+        }
 
     }
     private void OnTriggerEnter(Collider col)
     {
-        print("ChestMonster collision " + col.gameObject.name);
+        print("glob collision " + col.gameObject.name);
         if (col.tag == "Player")
         {
             var healthBar = playerHealth.GetComponent<HealthBarScript>();
             healthBar.TakeDamage(10);
             print("game won");
+            Destroy(gameObject);
+        }
+
+        if (col.tag == "Ground")
+        {
+            Destroy(gameObject);
         }
     }
 }

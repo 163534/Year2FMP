@@ -5,6 +5,7 @@ public class HealthBarScript : MonoBehaviour
 {
     public Image health;
     public float playerHealth;
+    public GameObject deathMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,11 @@ public class HealthBarScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             Heal(10);
+        }
+        if (playerHealth >= 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            deathMenu.SetActive(true);
         }
     }
     public void TakeDamage(float damage)

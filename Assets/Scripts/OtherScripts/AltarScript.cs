@@ -7,6 +7,7 @@ public class AltarScript : MonoBehaviour
 {
     public bool altarActive;
     private TMP_Text objectiveText;
+    public GameObject winMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,8 @@ public class AltarScript : MonoBehaviour
         if (col.collider.name == "Player" && altarActive)
         {
             print("game won");
+            winMenu.SetActive(true);
+
         }
     }
 }

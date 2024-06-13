@@ -23,12 +23,13 @@ public class PlayerFSM : MonoBehaviour
     public GameObject aimCamera;
     public GameObject aimReticle;
 
+    public GameObject DeathMenu;
+
     // debug text
     public string text;
     public Vector3 angles;
     public float angle;
     public bool canShoot;
-    public float health;
 
     [SerializeField]
     float jumpHeight;
@@ -64,7 +65,6 @@ public class PlayerFSM : MonoBehaviour
         // this is the inital state
         ChangeState(idleState);
 
-        health = 100;
         cc = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -75,6 +75,7 @@ public class PlayerFSM : MonoBehaviour
         {
             currentState.UpdateState();
         }
+        
         //Debug.Log(cc.isGrounded);
     }
 
@@ -131,11 +132,11 @@ public class PlayerFSM : MonoBehaviour
             //aimReticle.SetActive(false);
         }
     }
-    IEnumerator ShowReticle()
+  /*  IEnumerator ShowReticle()
     {
         yield return new WaitForSeconds(0.25f);
         aimReticle.SetActive(true);
-    }
+    } */
 
     public void ShootFireBall()
     {

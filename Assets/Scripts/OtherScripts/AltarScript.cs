@@ -18,6 +18,16 @@ public class AltarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(altarActive)
+        {
+            objectiveText.text = "Objective: Get to the Altar!";
+        }
+    }
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.collider.name == "Player" && altarActive)
+        {
+            print("game won");
+        }
     }
 }

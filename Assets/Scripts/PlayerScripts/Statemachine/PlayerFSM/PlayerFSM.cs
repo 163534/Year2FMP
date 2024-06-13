@@ -255,12 +255,13 @@ public class PlayerFSM : MonoBehaviour
         RaycastHit hit;
         float gravity = -9.81f;
         Vector3 rayOffset = new Vector3(0, 0.5f, 0);
-
+        AnimateJump();
 
         //Debug.Log(velocity.y);
         if (cc.isGrounded && velocity.y < 0)
         {
             velocity.y = 0f;
+            //anim.SetBool("jumping", false);
         }
         if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(groundCheck.transform.position, Vector3.down, out hit, 0.65f))
         {
@@ -268,6 +269,7 @@ public class PlayerFSM : MonoBehaviour
             {
                 //Debug.DrawRay(transform.position, Vector3.down * 0.2f, Color.red);
                 velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+               //anim.SetBool("jumping", true);
                 Debug.Log("Jumping");
             }
             else
@@ -277,9 +279,19 @@ public class PlayerFSM : MonoBehaviour
         }
         Debug.DrawRay(groundCheck.transform.position, Vector3.down * 0.5f, Color.red);
         velocity.y += gravity * Time.deltaTime;
-
         //cc.Move(velocity * Time.deltaTime);
-        
+    }
+    public void AnimateJump()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(groundCheck.transform.position, Vector3.down, out hit, 0.65f))
+        {
+            anim.SetBool("jumping", false);
+        }
+        else
+        {
+            anim.SetBool("jumping", true);
+        }
     }
     public void ApplyGravity()
     {

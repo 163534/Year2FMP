@@ -24,9 +24,10 @@ public class AltarScript : MonoBehaviour
             objectiveText.text = "Objective: Get to the Altar!";
         }
     }
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
-        if (col.collider.name == "Player" && altarActive)
+        print("Collision" + col.gameObject.name);
+        if (col.name == "Player" && altarActive)
         {
             print("game won");
             winMenu.SetActive(true);

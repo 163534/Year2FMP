@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 8002454468248432907}
   - component: {fileID: 3477961910582363905}
   - component: {fileID: -1410516250626065603}
-  m_Layer: 0
+  - component: {fileID: 8446777773435795578}
+  m_Layer: 8
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 09baec7a684899245bf6dfa68cb58f9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +101,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -133,3 +134,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8446777773435795578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607403849362711123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8773798596672c4891e8373772fa094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 0

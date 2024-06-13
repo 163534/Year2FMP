@@ -17,13 +17,10 @@ public class PlayerFSM : MonoBehaviour
     public JumpState jumpState;
     public RunState runState;
 
-
-
     public GameObject mainCamera;
     public GameObject aimCamera;
     public GameObject aimReticle;
-
-    public GameObject DeathMenu;
+    public GameObject healthBar;
 
     // debug text
     public string text;
@@ -36,7 +33,6 @@ public class PlayerFSM : MonoBehaviour
     public GameObject groundCheck;
 
     public GameObject fireballPrefab;
-    float fireballCooldown;
     public Vector3 targetTransform;
     public Transform fireballSpawn;
 
@@ -56,7 +52,6 @@ public class PlayerFSM : MonoBehaviour
 
         //anim.SetFloat("AnimSpeed", 2);
 
-        fireballCooldown = 0;
         canShoot = true;
 
         text = "";  // clear debug text
@@ -145,13 +140,14 @@ public class PlayerFSM : MonoBehaviour
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
             canShoot = false;
-            if(Physics.Raycast(ray, out hit))
+            //if(Physics.Raycast(ray, out hit))
             {
-                targetTransform = hit.point;
-                Invoke("InstantiateFireBall", 2);
+                //targetTransform = hit.point;
+                Invoke("InstantiateFireBall", 0.1f);
+                print("fired ray");
 
                 //InstantiateFireBall();
-                Debug.Log($"Hit: {hit.collider.name}");
+                //Debug.Log($"Hit: {hit.collider.name}");
             }
             //InstantiateFireBall();
         }

@@ -10,7 +10,7 @@ public class HealthBarScript : MonoBehaviour
     void Start()
     {
         playerHealth = 100;
-        TakeDamage(10);
+        //TakeDamage(10);
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class HealthBarScript : MonoBehaviour
         {
             Heal(10);
         }
-        if (playerHealth >= 0)
+        if (playerHealth <= 0)
         {
             Cursor.lockState = CursorLockMode.None;
             deathMenu.SetActive(true);

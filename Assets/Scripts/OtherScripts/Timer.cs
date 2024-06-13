@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
@@ -10,10 +8,12 @@ public class Timer : MonoBehaviour
     private float currentTime;
     [SerializeField]
     private TMP_Text textVar;
+    AltarScript alterScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        alterScript = GameObject.FindGameObjectWithTag("Altar").GetComponent<AltarScript>();
         currentTime = 0;
         timerActive = true;
     }
@@ -29,5 +29,9 @@ public class Timer : MonoBehaviour
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
 
         textVar.text = "Time " + time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":" + time.Milliseconds.ToString();
+        if(currentTime >= 30f)
+        {
+            alterScript.altarActive = true;
+        }
     }
 }

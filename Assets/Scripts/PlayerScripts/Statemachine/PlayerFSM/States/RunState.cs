@@ -13,7 +13,7 @@ public class RunState : IState
         sm = stateMachine;
 
         //Debug.Log("Entered Run State");
-        sm.InitDebugText();
+        //sm.InitDebugText();
     }
     public void UpdateState()
     {

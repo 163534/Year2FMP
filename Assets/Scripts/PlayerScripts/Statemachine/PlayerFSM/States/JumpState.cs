@@ -11,7 +11,7 @@ public class JumpState : IState
         sm = stateMachine;
 
         Debug.Log("Entered Jump State");
-        sm.InitDebugText();
+        //sm.InitDebugText();
     }
     public void UpdateState()
     {

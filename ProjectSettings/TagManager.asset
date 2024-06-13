@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - GlobShot
   - Items
+  - ObjectiveText
+  - Altar
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,7 @@ public class AimState : IState
     public void OnEnterState(PlayerFSM stateMachine)
     {
         sm = stateMachine;
-        sm.InitDebugText();
+        //sm.InitDebugText();
 
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         aimCamera = GameObject.FindGameObjectWithTag("AimCamera");

@@ -22,6 +22,7 @@ public class IdleState : IState
         }
         sm.MovementCalculationAndCamera();
         sm.Jump();
+        sm.ShootFireBall();
         //sm.ApplyGravity();
         sm.AimDownSights();
 

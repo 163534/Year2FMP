@@ -27,12 +27,17 @@ public class PlayerFSM : MonoBehaviour
     public string text;
     public Vector3 angles;
     public float angle;
-
+    public bool canShoot;
     public float health;
 
     [SerializeField]
     float jumpHeight;
     public GameObject groundCheck;
+
+    public GameObject fireballPrefab;
+    float fireballCooldown;
+    public Vector3 targetTransform;
+    public Transform fireballSpawn;
 
     public float rotationPower;
     Vector3 velocity;
@@ -50,6 +55,8 @@ public class PlayerFSM : MonoBehaviour
 
         //anim.SetFloat("AnimSpeed", 2);
 
+        fireballCooldown = 0;
+        canShoot = true;
 
         text = "";  // clear debug text
 
@@ -130,6 +137,29 @@ public class PlayerFSM : MonoBehaviour
         aimReticle.SetActive(true);
     }
 
+    public void ShootFireBall()
+    {
+        if (Input.GetMouseButtonDown(0) && canShoot)
+        {
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+            canShoot = false;
+            if(Physics.Raycast(ray, out hit))
+            {
+                targetTransform = hit.point;
+                Invoke("InstantiateFireBall", 2);
+
+                //InstantiateFireBall();
+                Debug.Log($"Hit: {hit.collider.name}");
+            }
+            //InstantiateFireBall();
+        }
+    }
+    public void InstantiateFireBall()
+    {
+        GameObject fireball = Instantiate(fireballPrefab, fireballSpawn.position, Quaternion.identity);
+        canShoot = true;
+    }
     public void InitDebugText()
     {
         string lastStateText;

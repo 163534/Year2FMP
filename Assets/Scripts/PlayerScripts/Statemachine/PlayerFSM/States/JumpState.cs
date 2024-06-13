@@ -15,7 +15,7 @@ public class JumpState : IState
     }
     public void UpdateState()
     {
-
+        sm.ShootFireBall();
       //  sm.Jump();
       //  sm.AimDownSights();
     }

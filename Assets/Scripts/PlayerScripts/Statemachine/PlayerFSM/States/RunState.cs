@@ -29,6 +29,7 @@ public class RunState : IState
         }
         sm.AnimateMovement();
         sm.AimDownSights();
+        sm.ShootFireBall();
         sm.Jump();
         sm.MoveCC();
 
